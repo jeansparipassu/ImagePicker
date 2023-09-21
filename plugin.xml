@@ -38,7 +38,7 @@
 
         <header-file src="src/ios/GMImagePicker/FeHourGlass.h" />
         <source-file src="src/ios/GMImagePicker/FeHourGlass.m" />
-      
+
         <header-file src="src/ios/GMImagePicker/UIImage+fixOrientation.h" />
         <source-file src="src/ios/GMImagePicker/UIImage+fixOrientation.m" />
 
@@ -106,11 +106,12 @@
             </activity>
         </config-file>
 
-        <config-file target="AndroidManifest.xml" parent="/manifest">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
         </config-file>
 
-        <preference name="ANDROID_SUPPORT_V7_VERSION" default="27+"/>
+        <preference name="ANDROID_SUPPORT_V7_VERSION" default="27.+"/>
         <framework src="com.android.support:appcompat-v7:$ANDROID_SUPPORT_V7_VERSION" />
 
         <source-file src="src/android/com/synconset/ImagePicker/ImagePicker.java" target-dir="src/com/synconset" />
@@ -139,7 +140,6 @@
         <resource-file src="src/android/Library/res/layout/actionbar_done_button.xml" target="res/layout/actionbar_done_button.xml"/>
         <resource-file src="src/android/Library/res/layout/multiselectorgrid.xml" target="res/layout/multiselectorgrid.xml"/>
         <resource-file src="src/android/Library/res/values/multiimagechooser_strings_en.xml" target="res/values/multiimagechooser_strings_en.xml"/>
-
         <resource-file src="src/android/Library/res/values-de/multiimagechooser_strings_de.xml" target="res/values-de/multiimagechooser_strings_de.xml"/>
         <resource-file src="src/android/Library/res/values-es/multiimagechooser_strings_es.xml" target="res/values-es/multiimagechooser_strings_es.xml"/>
         <resource-file src="src/android/Library/res/values-fr/multiimagechooser_strings_fr.xml" target="res/values-fr/multiimagechooser_strings_fr.xml"/>
@@ -156,20 +156,20 @@
 
     <!-- browser -->
     <platform name="browser">
-      <config-file parent="/*" target="config.xml">
-  				<feature name="ImagePicker">
-  						<param name="browser-package" value="ImagePicker"/>
-  				</feature>
-  		</config-file>
+        <config-file parent="/*" target="config.xml">
+            <feature name="ImagePicker">
+                <param name="browser-package" value="ImagePicker"/>
+            </feature>
+        </config-file>
 
-      <!-- Required for browserify: we always link module below as there is conditional reference
-      to this module from requestFileSystem and resolveLocalFileSystemURI modules. -->
-      <js-module src="www/browser/isChrome.js" name="isChrome">
-          <runs />
-      </js-module>
+        <!-- Required for browserify: we always link module below as there is conditional reference
+        to this module from requestFileSystem and resolveLocalFileSystemURI modules. -->
+        <js-module src="www/browser/isChrome.js" name="isChrome">
+            <runs />
+        </js-module>
 
-  		<js-module src="src/browser/ImagePicker.js" name="ImagePickerProxy">
-  				<runs/>
-  		</js-module>
+        <js-module src="src/browser/ImagePicker.js" name="ImagePickerProxy">
+            <runs/>
+        </js-module>
     </platform>
 </plugin>
