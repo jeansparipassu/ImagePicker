@@ -41,8 +41,10 @@ async function getPictures(successCallback, errorCallback, data) {
   if (data[0].allow_video) params.allow_video = data[0].allow_video;
 
   openImagePicker(params.maximumImagesCount, params.width, params.height, params.quality, params.outputType, params.allow_video).then((images) => {
+    console.log(images);
     successCallback(images);
   }).catch((error) => {
+    console.log(error);
     errorCallback(error);
   });
 }
@@ -73,18 +75,21 @@ function openImagePicker(maximumImagesCount, desiredWidth, desiredHeight, qualit
       let resizeImagePromises = [];
       let fileNames =  []; //We need to store filenames as chrome deletes event.target.files to quickly
 
+      console.log( event.target.files);
       if (event.target.files.length <= maximumImagesCount) {
         for (let file of event.target.files) {
           fileNames.push('tmp_' + getDateTimeString() + '_' + file.name);
           resizeImagePromises.push(resizeImage(file, desiredWidth, desiredHeight, quality, outputType));
         }
 
+        console.log(resizeImagePromises);
+
         Promise.all(resizeImagePromises).then((images) => {
           if (outputType == 0) {
             //If we need FILE_URI, we need to store the files in the temporary dir of the browser
             //So we need to write the files there Before
             let saveBlobPromises = [];
-
+            console.log(images);
             for (let i = 0; i < images.length; i++) {
               saveBlobPromises.push(saveBlobToTemporaryFileSystem(images[i], fileNames[i]));
             }
